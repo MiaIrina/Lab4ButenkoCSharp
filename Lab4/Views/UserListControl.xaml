@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="ButenkoLab4.Views.UserListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ButenkoLab4.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="AntiqueWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="200" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Sort by:" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"></Label>
+
+        <Label Content="Filter by horoscope sign:" Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Center"></Label>
+        <Label Content="Filter by chinese sign:" Grid.Row="0" Grid.Column="2"  HorizontalAlignment="Center"></Label>
+        <Label Content="Filter by other criterions:" Grid.Row="0" Grid.Column="3"  HorizontalAlignment="Center"></Label>
+        <ComboBox Height="20" Width="150" VerticalAlignment="Bottom"  Grid.Row="1"  SelectedIndex="{Binding SortBy, Mode=TwoWay}" Grid.Column="0">
+
+            <ComboBoxItem IsSelected="True"  Name="showAllUsers" Content="No sort" >
+
+            </ComboBoxItem>
+            <ComboBoxItem Name="sortByName" Content="Sort by name">
+
+            </ComboBoxItem>
+            <ComboBoxItem Name="sortBySurname" Content="Sort by surname">
+
+            </ComboBoxItem>
+            <ComboBoxItem Name="sortByEmail" Content="Sort by email">
+
+            </ComboBoxItem>
+            <ComboBoxItem Name="sortByAge" Content="Sort by age">
+
+            </ComboBoxItem>
+
+        </ComboBox>
+        <ComboBox Height="20" Width="150" VerticalAlignment="Bottom"   Grid.Row="1" SelectedItem="{Binding SelectedItemWest}" SelectedIndex="{Binding FilterByWestHoroscope, Mode=TwoWay}" Grid.Column="1" ItemsSource="{Binding ZodiacContent}">
+
+
+        </ComboBox>
+        <ComboBox Height="20" Width="150" VerticalAlignment="Bottom"  Grid.Row="1"  SelectedItem="{Binding SelectedItemChinese}" SelectedIndex="{Binding FilterByChineseHoroscope, Mode=TwoWay}" Grid.Column="2" ItemsSource="{Binding ChineseContent}">
+
+
+        </ComboBox>
+        <ComboBox Height="20" Width="150" VerticalAlignment="Bottom"  Grid.Row="1"  SelectedIndex="{Binding SortByAnother, Mode=TwoWay}" Grid.Column="3" >
+            <ComboBoxItem  IsSelected="True" Name="showWithoutOthers" Content="No other filters" >
+
+            </ComboBoxItem>
+            <ComboBoxItem   Name="showAdults" Content="Show adult users" >
+
+            </ComboBoxItem>
+            <ComboBoxItem   Name="showBirthdayPeople" Content="Show people whose birthday is today" >
+
+            </ComboBoxItem>
+        </ComboBox>
+        <Button Content="Apply filters" Grid.Row="2" Width="100" Margin="10,20"  Grid.ColumnSpan="4" Command="{Binding SortCommand}"></Button>
+        <DataGrid ItemsSource="{Binding Users, Mode=OneWay}" AutoGenerateColumns="False" Grid.Row="3"  Grid.ColumnSpan="4" ColumnWidth="*"  SelectedItem="{Binding SelectedPerson}" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="User name" Binding="{Binding Name,Mode=OneWay}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="User surname" Binding="{Binding Surname,Mode=OneWay}"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email,Mode=OneWay}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Date of birth" Binding="{Binding  BirthDayString,Mode=OneWay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Age" Binding="{Binding Age,Mode=OneWay}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="SunSign" Binding="{Binding WestHoroscope,Mode=OneWay}"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="ChineseSign" Binding="{Binding ChineseHoroscope,Mode=OneWay}"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Birthday today" Binding="{Binding IsBirthdayString,Mode=OneWay}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Edit user" IsEnabled="{Binding IsPersonSelected}" Width="150" Command="{Binding EditCommand}" Grid.Row="4"  Grid.ColumnSpan="4" ></Button>
+        <Button Content="Delete user" IsEnabled="{Binding IsPersonSelected}" Width="150" Command="{Binding DeleteCommand}" Grid.Row="5"  Grid.ColumnSpan="4" ></Button>
+        <Button Content="Back to the menu" Width="150" Command="{Binding ReturnCommand}" Grid.Row="6"  Grid.ColumnSpan="4" ></Button>
+    </Grid>
+</UserControl>
