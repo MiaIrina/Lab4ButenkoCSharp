@@ -58,7 +58,11 @@ namespace ButenkoLab4.ViewModels
 					Thread.Sleep(1000);
 
 					_user = new Person(Name, Surname, Birthday, Email);
-
+                                       
+				       if (!ToEdit.Email.Equals(Email) && StationManager.DataStorage.UserExists(Email))
+					{
+						throw new Exception("User with such email already exists!");
+					}
 
 					if (_user.IsBirthDay)
 					{
